@@ -4,6 +4,7 @@ namespace DigiTouch\RocketFuel\Service;
 
 use DigiTouch\RocketFuel\Model\Service\AdvertisementServiceInterface;
 use DigiTouch\RocketFuel\Model\Service\PageInterface;
+use DigiTouch\RocketFuel\Model\Service\QueryParamInterface;
 use InvalidArgumentException;
 
 /**
@@ -28,14 +29,13 @@ class AdvertisementService extends AbstractService implements AdvertisementServi
 
         $queryParams = [];
         if ($campaignId) {
-            $queryParams['campaign_id'] = $campaignId;
+            $queryParams[] = new QueryParam('campaign_id', $campaignId);
         } else {
-            $queryParams['company_id'] = $companyId;
+            $queryParams[] = new QueryParam('company_id', $companyId);
         }
 
         if (null !== $page) {
-            $queryParams['page'] = $page->getPage();
-            $queryParams['page_size'] = $page->getSize();
+            $this->pageToQueryParamArray($queryParams, $page);
         }
 
         return $this->requestBuilder->get($uri, $queryParams, $filters, $sorts)->send()->body;

@@ -34,6 +34,6 @@ class CompanyService extends AbstractService implements CompanyServiceInterface
     {
         $uri = '/2016/companies';
 
-        return $this->requestBuilder->get($uri, ['company_id' => $companyId])->send()->body;
+        return $this->requestBuilder->get($uri, [new QueryParam('company_id', $companyId)])->send()->body;
     }
 }

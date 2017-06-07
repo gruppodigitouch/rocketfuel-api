@@ -46,7 +46,7 @@ class LineItemServiceTest extends AbstractIntegrationServiceTest
            $this->assertTrue(is_object($lineItem));
            $this->assertObjectHasAttribute('id', $lineItem);
            $this->assertEquals($data->items[0]->id, $lineItem->id);
-           
+
            break;
        }
 

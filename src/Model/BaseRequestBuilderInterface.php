@@ -3,6 +3,7 @@
 namespace DigiTouch\RocketFuel\Model;
 
 use DigiTouch\RocketFuel\Model\Service\FilterInterface;
+use DigiTouch\RocketFuel\Model\Service\QueryParamInterface;
 use DigiTouch\RocketFuel\Model\Service\SortInterface;
 use Httpful\Request;
 
@@ -14,10 +15,10 @@ use Httpful\Request;
 interface BaseRequestBuilderInterface
 {
     /**
-     * @param string             $uri
-     * @param array              $queryParams
-     * @param FilterInterface[]  $filters
-     * @param SortInterface[]    $sorts
+     * @param string                $uri
+     * @param QueryParamInterface[] $queryParams
+     * @param FilterInterface[]     $filters
+     * @param SortInterface[]       $sorts
      *
      * @return Request
      */
@@ -25,18 +26,18 @@ interface BaseRequestBuilderInterface
 
 
     /**
-     * @param string $uri
-     * @param array  $queryParams
-     * @param mixed  $payload a JSON serializable object/array
+     * @param string                 $uri
+     * @param QueryParamInterface[]  $queryParams
+     * @param mixed                  $payload a JSON serializable object/array
      *
      * @return Request
      */
     public function post($uri, array $queryParams = [], $payload = null);
 
     /**
-     * @param string $uri
-     * @param array  $queryParams
-     * @param mixed  $payload a JSON serializable object/array
+     * @param string                 $uri
+     * @param QueryParamInterface[]  $queryParams
+     * @param mixed                  $payload a JSON serializable object/array
      *
      * @return Request
      */

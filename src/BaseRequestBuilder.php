@@ -4,6 +4,7 @@ namespace DigiTouch\RocketFuel;
 
 use DigiTouch\RocketFuel\Model\BaseRequestBuilderInterface;
 use DigiTouch\RocketFuel\Model\Service\FilterInterface;
+use DigiTouch\RocketFuel\Model\Service\QueryParamInterface;
 use DigiTouch\RocketFuel\Model\Service\SortInterface;
 use Httpful\Request;
 
@@ -74,10 +75,10 @@ class BaseRequestBuilder implements BaseRequestBuilderInterface
     }
 
     /**
-     * @param string            $url
-     * @param array             $queryParams
-     * @param FilterInterface[] $filters
-     * @param SortInterface[]   $sorts
+     * @param string                $url
+     * @param QueryParamInterface[] $queryParams
+     * @param FilterInterface[]     $filters
+     * @param SortInterface[]       $sorts
      *
      * @return string
      */
@@ -88,7 +89,10 @@ class BaseRequestBuilder implements BaseRequestBuilderInterface
         }
 
         $queryString = [];
-        foreach ($queryParams as $key => $value) {
+        foreach ($queryParams as $queryParam) {
+            $key = $queryParam->getName();
+            $value = $queryParam->getValue();
+
             if (is_array($value)) {
                 $queryString[] = $key.'='.implode(',', $value);
             } else {

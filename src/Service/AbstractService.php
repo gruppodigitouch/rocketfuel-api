@@ -3,6 +3,8 @@
 namespace DigiTouch\RocketFuel\Service;
 
 use DigiTouch\RocketFuel\Model\BaseRequestBuilderInterface;
+use DigiTouch\RocketFuel\Model\Service\PageInterface;
+use DigiTouch\RocketFuel\Model\Service\QueryParamInterface;
 
 /**
  * Class AbstractService
@@ -21,5 +23,17 @@ abstract class AbstractService
      */
     public function __construct(BaseRequestBuilderInterface $requestBuilder)
     {
-        $this->requestBuilder = $requestBuilder;}
+        $this->requestBuilder = $requestBuilder;
+    }
+
+    public function queryParamToQueryParamArray(array &$queryParamArray, QueryParamInterface $queryParam)
+    {
+        $queryParamArray[$queryParam->getName()] = $queryParam->getValue();
+    }
+
+    public function pageToQueryParamArray(array &$queryParamArray, PageInterface $page)
+    {
+        $queryParamArray[] = new QueryParam('page', $page->getPage());
+        $queryParamArray[] = new QueryParam('page_size', $page->getSize());
+    }
 }

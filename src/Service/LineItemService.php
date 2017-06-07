@@ -4,6 +4,7 @@ namespace DigiTouch\RocketFuel\Service;
 
 use DigiTouch\RocketFuel\Model\Service\LineItemServiceInterface;
 use DigiTouch\RocketFuel\Model\Service\PageInterface;
+use MongoDB\Driver\Query;
 
 /**
  * Class LineItemService
@@ -19,15 +20,15 @@ class LineItemService extends AbstractService implements LineItemServiceInterfac
     {
         $uri = '/2016/line_items';
         $queryParams = [
-            'campaign_id' => $campaignId,
-            'page' => $page->getPage(),
-            'page_size' => $page->getSize(),
+            new QueryParam('campaign_id', $campaignId),
+            new QueryParam('page', $page->getPage()),
+            new QueryParam('page_size', $page->getSize()),
         ];
 
         if ($filterByPaused) {
-            $queryParams['filtered'] = 'paused';
+            $queryParams[] = new QueryParam('filtered', 'paused');
         } elseif($filterByRunning) {
-            $queryParams['filtered'] = 'running';
+            $queryParams[] = new QueryParam('filtered', 'running');
         }
 
         return $this->requestBuilder->get($uri, $queryParams)->send()->body;
@@ -39,7 +40,7 @@ class LineItemService extends AbstractService implements LineItemServiceInterfac
     public function getLineItem($lineItemId)
     {
         $uri = '/2016/line_items';
-        $queryParams = ['line_item_id' => $lineItemId];
+        $queryParams = [new QueryParam('line_item_id', $lineItemId)];
 
         return $this->requestBuilder->get($uri, $queryParams)->send()->body;
     }
