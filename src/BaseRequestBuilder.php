@@ -82,7 +82,7 @@ class BaseRequestBuilder implements BaseRequestBuilderInterface
      *
      * @return string
      */
-    private function applyQueryParamsToUrl($url, array $queryParams = [], array $filters = [], array $sorts)
+    private function applyQueryParamsToUrl($url, array $queryParams = [], array $filters = [], array $sorts = [])
     {
         if (0 === count($queryParams)) {
             return $url;

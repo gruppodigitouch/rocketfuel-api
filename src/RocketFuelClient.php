@@ -9,11 +9,13 @@ use DigiTouch\RocketFuel\Model\Service\CampaignServiceInterface;
 use DigiTouch\RocketFuel\Model\Service\CompanyServiceInterface;
 use DigiTouch\RocketFuel\Model\Service\LineItemServiceInterface;
 use DigiTouch\RocketFuel\Model\Service\PixelServiceInterface;
+use DigiTouch\RocketFuel\Model\Service\ReportingServiceInterface;
 use DigiTouch\RocketFuel\Service\AdvertisementService;
 use DigiTouch\RocketFuel\Service\CampaignService;
 use DigiTouch\RocketFuel\Service\CompanyService;
 use DigiTouch\RocketFuel\Service\LineItemService;
 use DigiTouch\RocketFuel\Service\PixelService;
+use DigiTouch\RocketFuel\Service\ReportingService;
 
 /**
  * Class RocketFuelClient
@@ -69,6 +71,8 @@ class RocketFuelClient implements RocketFuelClientInterface
                 return new LineItemService($this->requestBuilder);
             case PixelServiceInterface::class:
                 return new PixelService($this->requestBuilder);
+            case ReportingServiceInterface::class:
+                return new ReportingService($this->requestBuilder);
             default:
                 throw new \LogicException(sprintf('Unhandled interface "%s"', $serviceFQCN));
         }

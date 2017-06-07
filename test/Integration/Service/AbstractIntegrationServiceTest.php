@@ -36,14 +36,4 @@ abstract class AbstractIntegrationServiceTest extends TestCase
     {
         return $this->client;
     }
-
-    /**
-     * @return BaseRequestBuilderInterface
-     */
-    protected function getRequestBuilder()
-    {
-        $config = require __DIR__.'/../../config.php';
-
-        return new BaseRequestBuilder($config['authorization_token'], $config['api_endpoint']);
-    }
 }
