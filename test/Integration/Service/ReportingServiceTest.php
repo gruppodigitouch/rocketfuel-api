@@ -44,7 +44,7 @@ class ReportingServiceTest extends AbstractIntegrationServiceTest
 
         $reports = $client->getReports(
             new DateTimeImmutable('-1 month'),
-            new DateTimeImmutable('now'),
+            new DateTimeImmutable('yesterday'),
             $reportMetrics,
             $reportDimensions,
             [],

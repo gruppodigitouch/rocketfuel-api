@@ -47,7 +47,7 @@ class ReportingService extends AbstractService implements ReportingServiceInterf
             $request['filters'] = $filters;
         }
 
-        return $this->requestBuilder->post($uri, [], $request)->send()->body;
+        return $this->requestBuilder->post($uri, [], $request);
     }
 
     /**
@@ -57,7 +57,7 @@ class ReportingService extends AbstractService implements ReportingServiceInterf
     {
         $uri = '/2016/reports/metrics';
 
-        return $this->requestBuilder->get($uri)->send()->body;
+        return $this->requestBuilder->get($uri);
     }
 
     /**
@@ -67,6 +67,6 @@ class ReportingService extends AbstractService implements ReportingServiceInterf
     {
         $uri = '/2016/reports/dimensions';
 
-        return $this->requestBuilder->get($uri)->send()->body;
+        return $this->requestBuilder->get($uri);
     }
 }

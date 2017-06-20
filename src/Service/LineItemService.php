@@ -31,7 +31,7 @@ class LineItemService extends AbstractService implements LineItemServiceInterfac
             $queryParams[] = new QueryParam('filtered', 'running');
         }
 
-        return $this->requestBuilder->get($uri, $queryParams)->send()->body;
+        return $this->requestBuilder->get($uri, $queryParams);
     }
 
     /**
@@ -42,6 +42,6 @@ class LineItemService extends AbstractService implements LineItemServiceInterfac
         $uri = '/2016/line_items';
         $queryParams = [new QueryParam('line_item_id', $lineItemId)];
 
-        return $this->requestBuilder->get($uri, $queryParams)->send()->body;
+        return $this->requestBuilder->get($uri, $queryParams);
     }
 }

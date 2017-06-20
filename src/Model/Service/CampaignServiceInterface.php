@@ -17,6 +17,7 @@ interface CampaignServiceInterface
      * @return stdClass
      *
      * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      */
     public function getCampaign($campaignId);
 
@@ -27,6 +28,7 @@ interface CampaignServiceInterface
      * @return stdClass[]
      *
      * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      */
     public function getCompanyCampaigns($companyId);
 }

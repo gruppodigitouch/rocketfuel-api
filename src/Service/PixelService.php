@@ -31,7 +31,7 @@ class PixelService extends AbstractService implements PixelServiceInterface
             );
         }
 
-        return $this->requestBuilder->get($uri, $queryParams)->send()->body;
+        return $this->requestBuilder->get($uri, $queryParams);
     }
 
     /**
@@ -62,7 +62,7 @@ class PixelService extends AbstractService implements PixelServiceInterface
             }
         }
 
-        return $this->requestBuilder->get($uri, $queryParams)->send()->body;
+        return $this->requestBuilder->get($uri, $queryParams);
     }
 
     /**
@@ -76,7 +76,7 @@ class PixelService extends AbstractService implements PixelServiceInterface
             $this->pageToQueryParamArray($queryParams, $page);
         }
 
-        return $this->requestBuilder->get($uri, $queryParams)->send()->body;
+        return $this->requestBuilder->get($uri, $queryParams);
     }
 
     /**
@@ -94,6 +94,6 @@ class PixelService extends AbstractService implements PixelServiceInterface
             $queryParams[] = new QueryParam('assignable', 'true');
         }
 
-        return $this->requestBuilder->get($uri, $queryParams)->send()->body;
+        return $this->requestBuilder->get($uri, $queryParams);
     }
 }

@@ -18,6 +18,7 @@ class AdvertisementService extends AbstractService implements AdvertisementServi
      * {@inheritdoc}
      *
      * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      */
     public function getAllAds($companyId = null, $campaignId = null, array $filters = [], array $sorts = [], PageInterface $page = null)
     {
@@ -38,6 +39,6 @@ class AdvertisementService extends AbstractService implements AdvertisementServi
             $this->pageToQueryParamArray($queryParams, $page);
         }
 
-        return $this->requestBuilder->get($uri, $queryParams, $filters, $sorts)->send()->body;
+        return $this->requestBuilder->get($uri, $queryParams, $filters, $sorts);
     }
 }

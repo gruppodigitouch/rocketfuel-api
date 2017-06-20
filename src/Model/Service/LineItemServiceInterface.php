@@ -20,6 +20,7 @@ interface LineItemServiceInterface
      * @return stdClass
      *
      * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      */
     public function getCampaignLineItems($campaignId, PageInterface $page, $filterByPaused = false, $filterByRunning = false);
 
@@ -29,6 +30,7 @@ interface LineItemServiceInterface
      * @return stdClass
      *
      * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      */
     public function getLineItem($lineItemId);
 }

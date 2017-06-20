@@ -20,7 +20,7 @@ class CampaignService extends AbstractService implements CampaignServiceInterfac
 
         $queryParams = [new QueryParam('campaign_id', $campaignId)];
 
-        return $this->requestBuilder->get($uri, $queryParams)->send()->body;
+        return $this->requestBuilder->get($uri, $queryParams);
     }
 
     /**
@@ -32,6 +32,6 @@ class CampaignService extends AbstractService implements CampaignServiceInterfac
 
         $queryParams = [new QueryParam('company_id', $companyId)];
 
-        return $this->requestBuilder->get($uri, $queryParams)->send()->body;
+        return $this->requestBuilder->get($uri, $queryParams);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace DigiTouch\Test\RocketFuel\Integration\Service;
+use DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException;
 use DigiTouch\RocketFuel\Model\Service\CampaignServiceInterface;
 use DigiTouch\RocketFuel\Model\Service\CompanyServiceInterface;
 use DigiTouch\RocketFuel\Model\Service\PixelServiceInterface;
@@ -32,17 +33,25 @@ class PixelServiceTest extends AbstractIntegrationServiceTest
             $this->markTestSkipped('No companies to work with');
         }
 
-        $response = $service->getByCompany($companies[0]->id);
+        try {
+            $response = $service->getByCompany($companies[0]->id);
 
-        $this->assertTrue(is_object($response));
-        $this->assertObjectHasAttribute('items', $response);
-        $this->assertTrue(is_array($response->items));
+            $this->assertTrue(is_object($response));
+            $this->assertObjectHasAttribute('items', $response);
+            $this->assertTrue(is_array($response->items));
 
-        $response = $service->getThirdPartyByCompany($companies[0]->id);
+            $response = $service->getThirdPartyByCompany($companies[0]->id);
 
-        $this->assertTrue(is_object($response));
-        $this->assertObjectHasAttribute('items', $response);
-        $this->assertTrue(is_array($response->items));
+            $this->assertTrue(is_object($response));
+            $this->assertObjectHasAttribute('items', $response);
+            $this->assertTrue(is_array($response->items));
+        } catch (RocketFuelApiException $exception) {
+            if ($exception->getResponse()->code === 403) {
+                $this->markTestSkipped('Not enough permissions to test this feature');
+            } else {
+                throw $exception;
+            }
+        }
     }
 
     /**

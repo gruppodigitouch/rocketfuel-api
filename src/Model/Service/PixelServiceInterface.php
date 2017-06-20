@@ -19,6 +19,7 @@ interface PixelServiceInterface
      * @return stdClass
      *
      * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      */
     public function getByCompany($companyId, PageInterface $page = null, $includeSharedPixels = null);
 
@@ -31,6 +32,7 @@ interface PixelServiceInterface
      * @return stdClass
      *
      * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      */
     public function getByCampaign(
         $campaignId,
@@ -46,8 +48,7 @@ interface PixelServiceInterface
      * @return stdClass
      *
      * @throws \Httpful\Exception\ConnectionErrorException
-     *
-     * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      */
     public function getThirdPartyByCompany($companyId, PageInterface $page = null);
 
@@ -59,6 +60,7 @@ interface PixelServiceInterface
      * @return stdClass
      *
      * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      */
     public function getThirdPartyByCampaign($campaignId, $assignable = null, PageInterface $page = null);
 }

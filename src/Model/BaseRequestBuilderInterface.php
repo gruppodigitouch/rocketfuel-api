@@ -5,7 +5,9 @@ namespace DigiTouch\RocketFuel\Model;
 use DigiTouch\RocketFuel\Model\Service\FilterInterface;
 use DigiTouch\RocketFuel\Model\Service\QueryParamInterface;
 use DigiTouch\RocketFuel\Model\Service\SortInterface;
+use Httpful\Exception\ConnectionErrorException;
 use Httpful\Request;
+use stdClass;
 
 /**
  * Interface BaseRequestBuilderInterface
@@ -20,7 +22,10 @@ interface BaseRequestBuilderInterface
      * @param FilterInterface[]     $filters
      * @param SortInterface[]       $sorts
      *
-     * @return Request
+     * @return stdClass|mixed
+     *
+     * @throws ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      */
     public function get($uri, array $queryParams = [], array $filters = [], array $sorts = []);
 
@@ -30,7 +35,10 @@ interface BaseRequestBuilderInterface
      * @param QueryParamInterface[]  $queryParams
      * @param mixed                  $payload a JSON serializable object/array
      *
-     * @return Request
+     * @return stdClass|mixed
+     *
+     * @throws ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      */
     public function post($uri, array $queryParams = [], $payload = null);
 
@@ -39,7 +47,10 @@ interface BaseRequestBuilderInterface
      * @param QueryParamInterface[]  $queryParams
      * @param mixed                  $payload a JSON serializable object/array
      *
-     * @return Request
+     * @return stdClass|mixed
+     *
+     * @throws ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      */
     public function put($uri, array $queryParams = [], $payload = null);
 }

@@ -3,10 +3,13 @@
 namespace DigiTouch\RocketFuel;
 
 use DigiTouch\RocketFuel\Model\BaseRequestBuilderInterface;
+use DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException;
 use DigiTouch\RocketFuel\Model\Service\FilterInterface;
 use DigiTouch\RocketFuel\Model\Service\QueryParamInterface;
 use DigiTouch\RocketFuel\Model\Service\SortInterface;
+use Httpful\Exception\ConnectionErrorException;
 use Httpful\Request;
+use stdClass;
 
 /**
  * Class BaseRequestBuilder
@@ -40,10 +43,11 @@ class BaseRequestBuilder implements BaseRequestBuilderInterface
     {
         $url = $this->apiEndpoint.$uri;
 
-        return Request::get($this->applyQueryParamsToUrl($url, $queryParams, $filters, $sorts), 'application/json')
+        $request = Request::get($this->applyQueryParamsToUrl($url, $queryParams, $filters, $sorts), 'application/json')
             ->addHeader('X-Auth-Token', $this->authenticationToken)
-            ->expects('application/json')
-            ->autoParse(true);
+            ->autoParse(false);
+
+        return $this->sendRequest($request);
     }
 
     /**
@@ -53,11 +57,12 @@ class BaseRequestBuilder implements BaseRequestBuilderInterface
     {
         $url = $this->apiEndpoint.$uri;
 
-        return Request::post($this->applyQueryParamsToUrl($url, $queryParams), 'application/json')
+        $request = Request::post($this->applyQueryParamsToUrl($url, $queryParams), 'application/json')
             ->body(json_encode($payload))
             ->addHeader('X-Auth-Token', $this->authenticationToken)
-            ->expects('application/json')
-            ->autoParse(true);
+            ->autoParse(false);
+
+        return $this->sendRequest($request);
     }
 
     /**
@@ -67,11 +72,12 @@ class BaseRequestBuilder implements BaseRequestBuilderInterface
     {
         $url = $this->apiEndpoint.$uri;
 
-        return Request::put($this->applyQueryParamsToUrl($url, $queryParams), 'application/json')
+        $request = Request::put($this->applyQueryParamsToUrl($url, $queryParams), 'application/json')
             ->body(json_encode($payload))
             ->addHeader('X-Auth-Token', $this->authenticationToken)
-            ->expects('application/json')
-            ->autoParse(true);
+            ->autoParse(false);
+
+        return $this->sendRequest($request);
     }
 
     /**
@@ -116,5 +122,37 @@ class BaseRequestBuilder implements BaseRequestBuilderInterface
         }
 
         return $url.'?'.$queryString;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return array|stdClass|string
+     *
+     * @throws ConnectionErrorException
+     * @throws RocketFuelApiException
+     */
+    private function sendRequest(Request $request) {
+        $response = $request->send();
+
+        if ($response->hasErrors()) {
+            throw new RocketFuelApiException(
+                $request,
+                $response,
+                RocketFuelApiException::CODE_HTTP_ERROR
+            );
+        }
+
+        $jsonObject = json_decode($response->body);
+
+        if (false === $jsonObject) {
+            throw new RocketFuelApiException(
+                $request,
+                $response,
+                RocketFuelApiException::CODE_JSON_DESERIALIZE_ERROR
+            );
+        }
+
+        return $jsonObject;
     }
 }

@@ -23,6 +23,7 @@ interface ReportingServiceInterface
      * @return stdClass[]
      *
      * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      * @throws \InvalidArgumentException in case of date range too wide (max 31 days)
      */
     public function getReports(
@@ -39,6 +40,7 @@ interface ReportingServiceInterface
      * @return stdClass[]
      *
      * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      */
     public function getMetrics();
 
@@ -46,6 +48,7 @@ interface ReportingServiceInterface
      * @return stdClass[]
      *
      * @throws \Httpful\Exception\ConnectionErrorException
+     * @throws \DigiTouch\RocketFuel\Model\Exception\RocketFuelApiException
      */
     public function getDimensions();
 }
