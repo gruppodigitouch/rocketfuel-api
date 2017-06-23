@@ -60,6 +60,7 @@ class BaseRequestBuilder implements BaseRequestBuilderInterface
         $request = Request::post($this->applyQueryParamsToUrl($url, $queryParams), 'application/json')
             ->body(json_encode($payload))
             ->addHeader('X-Auth-Token', $this->authenticationToken)
+            ->addHeader('Content-Type', 'application/json')
             ->autoParse(false);
 
         return $this->sendRequest($request);

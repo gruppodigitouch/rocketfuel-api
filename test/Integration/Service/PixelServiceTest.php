@@ -82,17 +82,25 @@ class PixelServiceTest extends AbstractIntegrationServiceTest
             $this->markTestSkipped('No campaigns to work with');
         }
 
-        $response = $service->getByCampaign($campaigns[0]->id);
+        try {
+            $response = $service->getByCampaign($campaigns[0]->id);
 
-        $this->assertTrue(is_object($response));
-        $this->assertObjectHasAttribute('items', $response);
-        $this->assertTrue(is_array($response->items));
+            $this->assertTrue(is_object($response));
+            $this->assertObjectHasAttribute('items', $response);
+            $this->assertTrue(is_array($response->items));
 
-        $response = $service->getThirdPartyByCampaign($campaigns[0]->id);
+            $response = $service->getThirdPartyByCampaign($campaigns[0]->id);
 
-        $this->assertTrue(is_object($response));
-        $this->assertObjectHasAttribute('items', $response);
-        $this->assertTrue(is_array($response->items));
+            $this->assertTrue(is_object($response));
+            $this->assertObjectHasAttribute('items', $response);
+            $this->assertTrue(is_array($response->items));
+        } catch (RocketFuelApiException $exception) {
+            if ($exception->getCode() === 403) {
+                $this->markTestSkipped('Not enough permissions to test this feature');
+            } else {
+                throw $exception;
+            }
+        }
     }
 
     /**

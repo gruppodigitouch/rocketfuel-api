@@ -35,8 +35,8 @@ class ReportingService extends AbstractService implements ReportingServiceInterf
         }
 
         $request = [
-            'startDate' => $startDate->format('Y-m-d'),
-            'endDate' => $endDate->format('Y-m-d'),
+            'start_date' => $startDate->format('Y-m-d'),
+            'end_date' => $endDate->format('Y-m-d'),
             'metrics' => $metrics,
             'dimensions' => $dimensions,
             'use_campaign_currency' => $useCampaignCurrency,
